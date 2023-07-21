@@ -1,0 +1,10 @@
+---
+- project:
+    templates:
+      - publish-stx-docs
+    check:
+      jobs:
+        - openstack-tox-linters
+    gate:
+      jobs:
+        - openstack-tox-linters
