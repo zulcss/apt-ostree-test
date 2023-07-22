@@ -13,14 +13,9 @@ Contents:
    :maxdepth: 2
 
    readme
-   install/index
-   library/index
    contributor/index
    configuration/index
    cli/index
-   user/index
-   admin/index
-   reference/index
 
 Indices and tables
 ==================
