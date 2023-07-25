@@ -1,13 +1,24 @@
-# -*- coding: utf-8 -*-
+"""
+Copyright (c) 2023 Wind River Systems, Inc.
 
-from apt_ostree.tests import base
+SPDX-License-Identifier: Apache-2.0
+
+"""
+
 from apt_ostree.cmd.shell import cli
+from apt_ostree.tests import base
 from click.testing import CliRunner
 
 
 class Test_apt_cli(base.TestCase):
 
-    def test_something(self):
+    def test_version(self):
         runner = CliRunner()
         result = runner.invoke(cli, ["version"])
         assert result.exit_code == 0
+
+    def test_debug(self):
+        runner = CliRunner()
+        result = runner.invoke(cli, ["--debug", "version"])
+        assert result.exit_code == 0
+
