@@ -9,6 +9,7 @@ import logging
 
 import click
 
+from apt_ostree.cmd.compose import compose
 from apt_ostree.cmd.version import version
 from apt_ostree.log import edebug
 from apt_ostree.log import init_logging
@@ -31,10 +32,12 @@ def cli(ctx: click.Context, debug):
         edebug("Debug turned on.")
 
     ctx.ensure_object(dict)
+    ctx.obj["debug"] = debug
 
 
 def main():
     cli(prog_name="apt-ostree")
 
 
+cli.add_command(compose)
 cli.add_command(version)

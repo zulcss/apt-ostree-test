@@ -17,8 +17,12 @@ class Test_apt_cli(base.TestCase):
         result = runner.invoke(cli, ["version"])
         assert result.exit_code == 0
 
+    def test_compose(self):
+        runner = CliRunner()
+        result = runner.invoke(cli, ["compose", "--help"])
+        assert result.exit_code == 0
+
     def test_debug(self):
         runner = CliRunner()
         result = runner.invoke(cli, ["--debug", "version"])
         assert result.exit_code == 0
-
