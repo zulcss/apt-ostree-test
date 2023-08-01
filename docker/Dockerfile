@@ -9,7 +9,7 @@ RUN apt-get update && \
 	python3-rich
 
 ADD assets/15update-stamp /etc/apt/apt.conf.d/15-update-stamp
-ADD asserts/pip.conf /etc/pip.conf
+ADD assets/pip.conf /etc/pip.conf
 
 RUN mkdir -p /usr/src/apt-ostree
 WORKDIR /usr/src/apt-ostree
