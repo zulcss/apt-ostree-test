@@ -1,0 +1,676 @@
+---
+mmdebstrap:
+  suite: bullseye
+  architectures: [amd64]
+  setup-hooks: [sync-in overlay/debian/ /]
+  packages:
+    # kernel+ostree
+    - linux-image-5.10.0-6-amd64-unsigned
+    - linux-rt-image-5.10.0-6-rt-amd64-unsigned
+    - grub-common
+    - ostree
+    - ostree-boot
+    - ostree-upgrade-mgr
+    - ifupdown
+    - bc
+    - vim
+    - uuid-runtime
+    - iputils-ping
+
+    # debian base
+    - acl
+    - acpi-support-base
+    - apparmor-utils
+    - apt-utils
+    - auditd
+    - bind9-dnsutils
+    - bind9-host
+    - bsdextrautils
+    - bsdutils
+    - busybox
+    - cloud-init
+    - cluster-glue
+    - collectd
+    - conntrack
+    - conntrackd
+    - cracklib-runtime
+    - cryptsetup-bin
+    - curl
+    - dbus-user-session
+    - dconf-gsettings-backend
+    - dnf
+    - docker.io
+    - dosfstools
+    - efibootmgr
+    - eject
+    - elfutils
+    - expect
+    - fonts-dejavu-core
+    - gnupg
+    - gunicorn
+    - hdparm
+    - ifenslave
+    - iperf3
+    - ipmitool
+    - iptables-persistent
+    - ipxe-qemu
+    - iscsiuio
+    - kbd
+    - less
+    - locales-all
+    - lsb-base
+    - mdadm
+    - memcached
+    - mokutil
+    - multipath-tools-boot
+    - netcat-openbsd
+    - nfs-kernel-server
+    - nftables
+    - ntp
+    - ntpdate
+    - nvme-cli
+    - open-iscsi
+    - openssh-server
+    - original-awk
+    - ovmf
+    - pinentry-curses
+    - pipexec
+    - postgresql-13
+    - psmisc
+    - pv
+    - python-is-python3
+    - qemu
+    - redfishtool
+    - rng-tools
+    - rpm
+    - rsync
+    - ruby-json
+    - screen
+    - seabios
+    - smartmontools
+    - socat
+    - spectre-meltdown-checker
+    - ssg-debian
+    - sshpass
+    - sssd
+    - sssd-tools
+    - startpar
+    - strace
+    - strongswan
+    - sudo-ldap
+    - syslinux-utils
+    - syslog-ng
+    - sysstat
+    - sysvinit-utils
+    - targetcli-fb
+    - tasksel
+    - tcpdump
+    - time
+    - traceroute
+    - tuned
+    - unzip
+    - uwsgi-plugin-apparmor
+
+    # stx-security-profiles-operator-helm
+    - stx-security-profiles-operator-helm
+
+    # monitoring
+    - collectd-extensions
+    - kube-cpusets
+    - kube-memory
+    - monitor-tools
+
+    # libvirt
+    - libvirt-clients
+    - libvirt-daemon
+    - libvirt-daemon-driver-lxc
+    - libvirt-daemon-driver-qemu
+    - libvirt-daemon-driver-storage-gluster
+    - libvirt-login-shell
+
+    # qemu
+    - qemu-block-extra
+    - qemu-guest-agent
+    - qemu-system-common
+    - qemu-system-data
+    - qemu-system-x86
+    - qemu-utils
+
+    # stx-openstack-helm-fluxcd
+    - stx-openstack-helm-fluxcd
+
+    # armada
+    - armada
+
+    # centos-debian-compat
+    - centos-debian-compat
+
+    # ceph
+    - ceph-base
+    - ceph-common
+    - ceph-fuse
+    - ceph-mds
+    - ceph-mgr
+    - ceph-mon
+    - ceph-osd
+    - ceph
+    - python3-ceph-argparse
+    - python3-ceph
+    - radosgw
+
+    # cluster-resource-agents
+    - resource-agents
+
+    # containerd
+    - containerd
+
+    # crictl
+    - crictl
+
+    # dhcp
+    - isc-dhcp-client
+
+    # dnsmas
+    - dnsmasq
+
+    # docker-distribution
+    - docker-registry
+
+    # drbd-tools
+    - drbd-utils
+
+    # efitools
+    - efitools
+
+    # etcd
+    - etcd-client
+    - etcd-server
+    - etcd
+
+    # facter
+    - facter
+
+    # grub-efi
+    - grub-efi-amd64
+    - grub-common
+    - grub-pc-bin
+    - grub-pc
+    - grub2-common
+    - grub2
+    - grubby
+
+    # haproxy-config
+    - haproxy
+    - haproxy-config
+
+    # helm
+    - helm
+
+    # ifupdown-extra
+    - ifupdown-extra
+
+    # disabled due to failure in bootstrap
+    # kdump
+    # kdump-tools
+    # iputils
+    - iputils-arping
+    - iputils-tracepath
+
+    # isolcpus-device-plugin
+    - isolcpus-device-plugin
+
+    # k8s-pod-recovery
+    - k8s-pod-recovery
+
+    # k8s-cni-cache-cleanup
+    - k8s-cni-cache-cleanup
+
+    # kubectl-cert-manager
+    - kubectl-cert-manager
+
+    # lvm2
+    - dmeventd
+    - dmsetup
+    - lvm2
+
+    # keyrings.alt
+    - python3-keyrings.alt
+
+    # kubernetes-x (-master, -misc, -unit-test used only for build)
+    - kubernetes-1.21.8-client
+    - kubernetes-1.21.8-kubeadm
+    - kubernetes-1.21.8-node
+    - kubernetes-1.22.5-client
+    - kubernetes-1.22.5-kubeadm
+    - kubernetes-1.22.5-node
+    - kubernetes-1.23.1-client
+    - kubernetes-1.23.1-kubeadm
+    - kubernetes-1.23.1-node
+    - kubernetes-1.24.4-client
+    - kubernetes-1.24.4-kubeadm
+    - kubernetes-1.24.4-node
+    - kubernetes-1.25.3-client
+    - kubernetes-1.25.3-kubeadm
+    - kubernetes-1.25.3-node
+    - kubernetes-1.26.1-client
+    - kubernetes-1.26.1-kubeadm
+    - kubernetes-1.26.1-node
+    - kubernetes-unversioned
+
+    # libfdt
+    - libfdt
+
+    # lighttpd
+    - lighttpd-mod-geoip
+    - lighttpd-modules-mysql
+    - lighttpd
+
+    # linuxptp
+    - linuxptp
+
+    # lldpd
+    - lldpd
+
+    # net-tools
+    - net-tools
+
+    # openldap
+    - ldap-utils
+    - slapd
+    - slapd-ppolicy-check-password
+    - ldapscripts
+
+    # parted
+    - parted
+
+    # pf-bb-config
+    - pf-bb-config
+
+    # plugins
+    - bond-cni
+    - containernetworking-plugins
+
+    # puppet + modules
+    - puppet
+    - puppet-boolean
+    - puppet-module-ceph
+    - puppet-dnsmasq
+    - puppet-drbd
+    - puppet-hash2stuff
+    - puppet-module-cristifalcas-etcd
+    - puppet-module-keystone
+    - puppet-module-horizon
+    - puppet-ldap
+    - puppet-lvm
+    - puppet-network
+    - puppet-module-openstacklib
+    - puppet-module-oslo
+    - puppet-puppi
+    - puppet-module-puppetlabs-rabbitmq
+    - puppet-module-nanliu-staging
+    - puppet-module-puppetlabs-firewall
+    - puppet-module-puppetlabs-haproxy
+    - puppet-module-puppetlabs-mysql
+    - puppet-module-puppetlabs-postgresql
+    - puppet-module-puppetlabs-stdlib
+    - puppet-dcdbsync
+    - puppet-dcmanager
+    - puppet-dcorch
+    - puppet-fm
+    - puppet-manifests
+    - puppet-mtce
+    - puppet-nfv
+    - puppet-patching
+    - puppet-smapi
+    - puppet-sshd
+    - puppet-sysinv
+
+    # python
+    - python3-docker
+    - python3-keyring
+    - python3-nsenter
+
+    # openscap
+    - openscap-common
+    - openscap-scanner
+    - openscap-utils
+    - python3-openscap
+
+    # openvswitch
+    - openvswitch-common
+    - openvswitch-switch-dpdk
+    - openvswitch-switch
+
+    # runc
+    - runc
+
+    # shim-unsigned
+    - shim-helpers-amd64-signed-template
+    - shim-unsigned
+
+    # systemd
+    - libnss-myhostname
+    - libpam-systemd
+    - systemd-container
+    - systemd-presets
+
+    # trident-installer
+    - trident-installer
+
+    # watchdog
+    - watchdog
+    - python3-oidcauthtools
+
+    # stx-oidc-auth-helm
+    - stx-oidc-auth-helm
+
+    # stx-harbor-helm
+    - stx-harbor-helm
+
+    # config
+    - audit-config
+    - base-files-config
+    - containerd-config
+    - debian-release-config
+    - dhcp-config
+    - dnsmasq-config
+    - docker-config
+    - filesystem-scripts
+    - initscripts-config
+    - io-scheduler
+    - iptables-config
+    - iscsi-initiator-utils-config
+    - lvm2-config
+    - logrotate-config
+    - lighttpd-config
+    - memcached-custom
+    - multipath-config
+    - multus-config
+    - nfs-utils-config
+    - ntp-config
+    - openldap-config
+    - openssh-config
+    - openvswitch-config
+    - pam-config
+    - python-siteconfig
+    - rabbitmq-server-config
+    - rsync-config
+    - sudo-config
+    - syslog-ng-config
+    - systemd-config
+    - tuned-config
+
+    # openstack
+    - barbican-api
+    - barbican-common
+    - barbican-keystone-listener
+    - barbican-worker
+    - python3-barbican
+    - keystone
+    - python3-keystone
+    - openstack-resource-agents
+    - python3-aodhclient
+    - python3-barbicanclient
+    - python3-cinderclient
+    - python3-glanceclient
+    - python3-gnocchiclient
+    - python3-heatclient
+    - openstack-dashboard-apache
+    - openstack-dashboard
+    - python3-django-horizon
+    - python3-ironicclient
+    - python3-keystoneclient
+    - python3-neutronclient
+    - python3-novaclient
+    - python3-openstackclient
+    - python3-openstacksdk
+    - python3-osc-lib
+    - python3-pankoclient
+    - python3-wsme
+
+    # rabbitmq-server
+    - rabbitmq-server
+
+    # stx-portieris-helm
+    - stx-portieris-helm
+
+    # cgcs-patch
+    - cgcs-patch-agent
+    - cgcs-patch-controller
+    - cgcs-patch
+    - python3-cgcs-patch
+
+    # enable-dev-patch (not used in deployment)
+    # - enable-dev-patch
+
+    # patch-alarm
+    - python3-patch-alarm
+
+    # software
+    - software
+
+    # build-info
+    - build-info
+
+    # ceph-manager
+    - ceph-manager
+
+    # collector
+    - collector
+
+    # hostdata-collectors
+    - engtools
+
+    # k8s-coredump
+    - k8s-coredump
+
+    # logmgmt
+    - logmgmt
+
+    # namespace-utils
+    - namespace-utils
+
+    # nfscheck
+    - nfscheck
+
+    # platform-util
+    - platform-util-controller
+    - platform-util-noncontroller
+    - platform-util
+    - python3-platform-util
+
+    # python-cephclient
+    - python3-cephclient
+
+    # stx-extensions
+    - stx-extensions
+
+    # update-motd
+    - update-motd
+
+    # worker-utils
+    - worker-utils
+
+    # stx-sts-silicom-helm
+    - stx-sts-silicom-helm
+
+    # stx-platform-helm
+    - stx-platform-helm
+
+    # ansible
+    - playbookconfig
+
+    # stx-node-feature-discovery-helm
+    - stx-node-feature-discovery-helm
+
+    # stx-oran-o2-helm
+    - stx-oran-o2-helm
+
+    # registry-token-server
+    - registry-token-server
+
+    # sysinv + add-ons
+    - cert-alarm
+    - cert-mon
+    - cgts-client
+    - config-gate-worker
+    - config-gate
+    - controllerconfig
+    - sysinv
+    - sysinv-agent
+    - storageconfig
+    - tsconfig
+    - workerconfig-standalone
+
+    # gui
+    - starlingx-dashboard
+
+    # distributedcloud-client
+    - distributedcloud-client-dcmanagerclient
+
+    # nfv
+    - nfv-client
+    - nfv-common
+    - nfv-plugins
+    - nfv-tools
+    - nfv-vim
+
+    # nova-api-proxy
+    - nova-api-proxy
+
+    # stx-metrics-server-helm
+    - stx-metrics-server-helm
+
+    # stx-cert-manager-helm
+    - stx-cert-manager-helm
+
+    # stx-vault-helm
+    - stx-vault-helm
+
+    # fm
+    - python3-fm-api
+    - fm-common-doc
+    - fm-common
+    - fm-doc
+    - fm-mgr
+    - fm-rest-api
+    - python3-fmclient
+
+    # mtce
+    - mtce-hostw
+    - mtce-hwmon
+    - mtce-lmon
+    - mtce-pmon
+    - mtce
+    - mtce-compute
+    - mtce-control
+    - mtce-storage
+    - platform-upgrades
+    - platform-kickstarts
+    - pxe-network-installer
+
+    # stx-ptp-notification-helm
+    - stx-ptp-notification-helm
+
+    # stx-dell-storage-helm
+    - stx-dell-storage-helm
+
+    # stx-istio-helm
+    - stx-istio-helm
+
+    # stx-snmp-helm
+    - stx-snmp-helm
+
+    # shadow-utils-config
+    - shadow-utils-config
+
+    # sm
+    - sm
+    - sm-common-libs
+    - sm-common
+    - sm-eru
+    - sm-db
+    - sm-api
+    - sm-client
+    - sm-tools
+
+    # stx-ocf-scripts
+    - stx-ocf-scripts
+
+    # kubevirt
+    - stx-kubevirt-app-helm
+
+    # kernel + drivers
+    - bnxt-en
+    - bnxt-en-rt
+    - i40e
+    - i40e-rt
+    - i40e-cvl-2.54
+    - 40e-cvl-2.54-rt
+    - i40e-cvl-4.10
+    - i40e-cvl-4.10-rt
+    - iavf
+    - iavf-rt
+    - iavf-cvl-2.54
+    - iavf-cvl-2.54-rt
+    - iavf-cvl-4.10
+    - iavf-cvl-4.10-rt
+    - ice
+    - ice-rt
+    - ice-cvl-2.54
+    - ice-cvl-2.54-rt
+    - ice-cvl-4.10
+    - ice-cvl-4.10-rt
+    - octeon-ep
+    - octeon-ep-rt
+    - igb-uio
+    - igb-uio-rt
+    - initramfs-trigger
+    - iqvlinux
+    - iqvlinux-rt
+    - kmod-opae-fpga-driver
+    - kmod-opae-fpga-driver-rt
+    - libbnxt-re
+    - linux-compiler-gcc-10-x86
+    - linux-headers-5.10.0-6-amd64
+    - linux-rt-headers-5.10.0-6-rt-amd64
+    - linux-headers-5.10.0-6-common
+    - linux-rt-headers-5.10.0-6-rt-common
+    - linux-kbuild-5.10
+    - linux-rt-kbuild-5.10
+    - linux-libc-dev
+    - linux-perf-5.10
+    - mlnx-ofed-kernel-modules
+    - mlnx-ofed-kernel-modules-rt
+    - mlnx-ofed-kernel-utils
+    - qat1.7.l
+    - qat1.7.l-rt
+
+    # disk
+    - rdma-core
+    - ibacm
+    - ibverbs-providers
+    - ibverbs-utils
+    - infiniband-diags
+    - python3-pyverbs
+    - rdma-core
+    - rdmacm-utils
+    - srptools
+
+    # mstflint
+    - mstflint
+
+    # distributedcloud
+    - distributedcloud-dccommon
+    - distributedcloud-dcdbsync
+    - distributedcloud-dcmanager
+    - distributedcloud-dcorch
+
+    # stx-sriov-fec-operator-helm
+    - stx-sriov-fec-operator-helm
+
+    # stx-audit-helm
+    - stx-audit-helm
+
+    # stx-nginx-ingress-controller-helm
+    - stx-nginx-ingress-controller-helm

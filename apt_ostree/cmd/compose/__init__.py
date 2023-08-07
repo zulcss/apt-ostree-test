@@ -5,15 +5,15 @@ SPDX-License-Identifier: Apache-2.0
 
 """
 
-import os
-import sys
-
 import click
+
+from apt_ostree.cmd.compose.create import create
 
 
 @click.group(help="Commands to build ostree repo/image")
 @click.pass_context
 def compose(ctxt):
-    if os.getuid() != 0:
-        print("You are not root.")
-        sys.exit(-1)
+    pass
+
+
+compose.add_command(create)

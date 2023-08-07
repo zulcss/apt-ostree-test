@@ -10,29 +10,28 @@ import logging
 import click
 
 from apt_ostree.cmd.compose import compose
+from apt_ostree.cmd.options import debug_option
+from apt_ostree.cmd.options import workspace_option
+from apt_ostree.cmd import pass_state_context
 from apt_ostree.cmd.version import version
-from apt_ostree.log import edebug
-from apt_ostree.log import init_logging
+from apt_ostree.log import setup_log
 
 
 @click.group(
     help="\nHyrbid image/package management system."
 )
-@click.option(
-    "--debug",
-    is_flag=True,
-    help="Turn on debugging mode."
-)
-@click.pass_context
-def cli(ctx: click.Context, debug):
-    init_logging()
+@pass_state_context
+@debug_option
+@workspace_option
+def cli(state, debug, workspace):
+    click.secho("Running apt-ostree.")
+    setup_log()
 
-    if debug:
+    if state.debug:
         logging.getLogger().setLevel(logging.DEBUG)
-        edebug("Debug turned on.")
 
-    ctx.ensure_object(dict)
-    ctx.obj["debug"] = debug
+    logging.debug(f"Creating workspace: {workspace}")
+    state.workspace.mkdir(parents=True, exist_ok=True)
 
 
 def main():

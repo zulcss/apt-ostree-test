@@ -10,7 +10,7 @@ from apt_ostree.tests import base
 from click.testing import CliRunner
 
 
-class Test_apt_cli(base.TestCase):
+class TestAPTCLI(base.TestCase):
 
     def test_version(self):
         runner = CliRunner()
