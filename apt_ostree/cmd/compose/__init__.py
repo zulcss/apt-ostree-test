@@ -8,6 +8,7 @@ SPDX-License-Identifier: Apache-2.0
 import click
 
 from apt_ostree.cmd.compose.create import create
+from apt_ostree.cmd.compose.image import image
 
 
 @click.group(help="Commands to build ostree repo/image")
@@ -17,3 +18,4 @@ def compose(ctxt):
 
 
 compose.add_command(create)
+compose.add_command(image)

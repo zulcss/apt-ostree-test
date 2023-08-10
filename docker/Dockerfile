@@ -1,8 +1,13 @@
+# Copyright (c) 2023 Wind River Systems, Inc.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 FROM debian:bullseye
 
 RUN apt-get update && \
     apt-get install -y \
 	bdebstrap \
+	debos \
 	ostree \
 	python3 \
 	python3-click \

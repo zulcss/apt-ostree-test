@@ -16,3 +16,8 @@ class TestComposeCLI(base.TestCase):
         runner = CliRunner()
         result = runner.invoke(cli, ["compose", "--help"])
         assert result.exit_code == 0
+ 
+    def test_compose_image(self):
+        runner = CliRunner()
+        result = runner.invoke(cli, ["compose", "image", "--help"])
+        assert result.exit_code == 0

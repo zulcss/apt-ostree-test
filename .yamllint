@@ -8,3 +8,4 @@ rules:
 
 ignore: |
   .zuul.yaml
+  config/debian/bookworm/image/image.yaml

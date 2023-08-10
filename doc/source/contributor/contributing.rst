@@ -4,9 +4,9 @@ So You Want to Contribute...
 
 For general information on contributing to OpenStack, please check out the
 `contributor guide <https://docs.openstack.org/contributors/>`_ to get started.
-It covers all the basics that are common to all OpenStack projects: the accounts
-you need, the basics of interacting with our Gerrit review system, how we
-communicate as a community, etc.
+It covers all the basics that are common to all OpenStack projects:
+the accounts you need, the basics of interacting with
+our Gerrit review system, how we communicate as a community, etc.
 
 Below will cover the more project specific information you need to get started
 with replace with the service it implements.
