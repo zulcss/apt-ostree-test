@@ -11,6 +11,7 @@ import shutil
 
 from apt_ostree.log import complete_step
 from apt_ostree.log import log_step
+from apt_ostree.platform import create_tmpfile_dir
 
 
 def create_ostree(rootdir):
@@ -20,6 +21,7 @@ def create_ostree(rootdir):
         setup_boot(rootdir,
                    rootdir.joinpath("boot"),
                    rootdir.joinpath("usr/lib/ostree-boot"))
+        create_tmpfile_dir(rootdir)
         convert_to_ostree(rootdir)
 
 

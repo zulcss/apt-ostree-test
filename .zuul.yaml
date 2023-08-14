@@ -20,6 +20,7 @@
     nodeset: debian-bullseye
     vars:
         tox_envlist: py39
+        tox_extra_args: --sitepackages
 
 - job:
     name: apt-ostree-tox-flake8
@@ -29,3 +30,4 @@
     nodeset: debian-bullseye
     vars:
         tox_envlist: flake8
+        tox_extra_args: --sitepackages

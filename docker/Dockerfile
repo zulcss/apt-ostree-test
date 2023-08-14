@@ -10,6 +10,7 @@ RUN apt-get update && \
 	debos \
 	ostree \
 	python3 \
+	python3-apt \
 	python3-click \
 	python3-pip \
 	python3-pbr \
