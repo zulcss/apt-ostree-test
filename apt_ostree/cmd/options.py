@@ -157,3 +157,19 @@ def origin_option(f):
         required=True,
         callback=callback
     )(f)
+
+
+"""packages"""
+
+
+def packages_option(f):
+    """packages option"""
+    def callback(ctxt, param, value):
+        state = ctxt.ensure_object(State)
+        state.packages = value
+        return value
+    return click.argument(
+        "packages",
+        nargs=-1,
+        callback=callback,
+    )(f)

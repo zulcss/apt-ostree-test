@@ -4,10 +4,12 @@ Copyright (c) 2023 Wind River Systems, Inc.
 SPDX-License-Identifier: Apache-2.0
 
 """
+import subprocess
 import sys
 import textwrap
 
 from apt_ostree.log import log_step
+from apt_ostree.utils import run_command
 
 
 class Repo:
@@ -20,7 +22,7 @@ class Repo:
         self.description = "Apt repository for StarlingX updates."
 
     def init(self):
-        """Create a debian archive from scratch."""
+        """Create a Debian archive from scratch."""
         log_step("Creating Debian package archive.")
         self.repo = self.repo.joinpath("conf")
         if not self.repo.exists():
@@ -50,3 +52,18 @@ class Repo:
                     basedir {self.repo}
                     """)
                 )
+
+    def add(self):
+        """Add Debian package(s) to repository"""
+        for pkg in self.state.packages:
+            log_step(f"Adding {pkg}")
+            r = run_command(
+                ["reprepro", "-b", str(self.repo), "includedeb",
+                 self.state.release, pkg],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                check=True)
+            if r.returncode == 0:
+                log_step(f"Successfully added {pkg}\n")
+            else:
+                log_step(f"Failed to add {pkg}\n")

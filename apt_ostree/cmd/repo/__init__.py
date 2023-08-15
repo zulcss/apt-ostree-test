@@ -7,6 +7,7 @@ SPDX-License-Identifier: Apache-2.0
 
 import click
 
+from apt_ostree.cmd.repo.add import add
 from apt_ostree.cmd.repo.init import init
 
 
@@ -16,4 +17,5 @@ def repo(ctxt):
     pass
 
 
+repo.add_command(add)
 repo.add_command(init)

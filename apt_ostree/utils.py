@@ -14,6 +14,7 @@ from apt_ostree.log import log_step
 
 
 def run_command(cmd,
+                debug=False,
                 stdin=None,
                 stdout=None,
                 stderr=None,
@@ -26,7 +27,8 @@ def run_command(cmd,
         LANG="C.UTF-8",
     ) | env
     try:
-        log_step(f"Running {' '.join(cmd)}")
+        if debug:
+            log_step(f"Running {' '.join(cmd)}")
         return subprocess.run(
             cmd,
             stdin=stdin,
