@@ -11,6 +11,8 @@ import click
 
 from apt_ostree.cmd import State
 
+"""global options"""
+
 
 def debug_option(f):
     def callback(ctxt, param, value):
@@ -51,6 +53,9 @@ def edit_option(f):
         help="Increase verbosity",
         callback=callback
     )(f)
+
+
+"""compose options"""
 
 
 def repo_option(f):
@@ -102,3 +107,53 @@ def compose_options(f):
     f = branch_option(f)
     f = edit_option(f)
     return f
+
+
+"""Package feed options"""
+
+
+def feed_option(f):
+    """package feed directory"""
+    def callback(ctxt, param, value):
+        state = ctxt.ensure_object(State)
+        state.feed = pathlib.Path(value)
+        return value
+    return click.option(
+        "--feed",
+        help="Directory to store package repository",
+        nargs=1,
+        required=True,
+        default="/var/repository",
+        callback=callback
+    )(f)
+
+
+def release_option(f):
+    """release option"""
+    def callback(ctxt, param, value):
+        state = ctxt.ensure_object(State)
+        state.release = value
+        return value
+    return click.option(
+        "--release",
+        help="Debian codename release",
+        nargs=1,
+        required=True,
+        callback=callback,
+        type=click.Choice(["bookworm", "bullseye"]),
+    )(f)
+
+
+def origin_option(f):
+    """Origin option"""
+    def callback(ctxt, param, value):
+        state = ctxt.ensure_object(State)
+        state.origin = value
+        return value
+    return click.option(
+        "--origin",
+        help="Debian package origin (e.g. updates)",
+        nargs=1,
+        required=True,
+        callback=callback
+    )(f)

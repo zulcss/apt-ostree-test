@@ -13,6 +13,7 @@ from apt_ostree.cmd.compose import compose
 from apt_ostree.cmd.options import debug_option
 from apt_ostree.cmd.options import workspace_option
 from apt_ostree.cmd import pass_state_context
+from apt_ostree.cmd.repo import repo
 from apt_ostree.cmd.version import version
 from apt_ostree.log import setup_log
 
@@ -39,4 +40,5 @@ def main():
 
 
 cli.add_command(compose)
+cli.add_command(repo)
 cli.add_command(version)
