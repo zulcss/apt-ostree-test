@@ -9,6 +9,7 @@ import click
 
 from apt_ostree.cmd.repo.add import add
 from apt_ostree.cmd.repo.init import init
+from apt_ostree.cmd.repo.list import show
 
 
 @click.group(help="Commands to create/manage Debian package repository")
@@ -19,3 +20,4 @@ def repo(ctxt):
 
 repo.add_command(add)
 repo.add_command(init)
+repo.add_command(show)

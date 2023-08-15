@@ -25,10 +25,10 @@ from apt_ostree.log import setup_log
 @debug_option
 @workspace_option
 def cli(state, debug, workspace):
-    click.secho("Running apt-ostree.")
     setup_log()
 
     if state.debug:
+        click.secho("Running apt-ostree.")
         logging.getLogger().setLevel(logging.DEBUG)
 
     logging.debug(f"Creating workspace: {workspace}")

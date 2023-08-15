@@ -8,6 +8,11 @@ import subprocess
 import sys
 import textwrap
 
+import click
+
+from rich.console import Console
+from rich.table import Table
+
 from apt_ostree.log import log_step
 from apt_ostree.utils import run_command
 
@@ -16,6 +21,7 @@ class Repo:
     def __init__(self, state):
         self.state = state
         self.repo = self.state.feed
+        self.console = Console()
 
         self.label = "StarlingX project udpates."
         self.arch = "amd64"
@@ -67,3 +73,30 @@ class Repo:
                 log_step(f"Successfully added {pkg}\n")
             else:
                 log_step(f"Failed to add {pkg}\n")
+
+    def show(self):
+        """Display a table of packages in the archive."""
+        r = run_command(
+            ["reprepro", "-b", str(self.repo), "list", self.state.release],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            check=False,
+            )
+        if r.returncode != 0:
+            click.secho(r.stdout.decode("utf-8"))
+        if "Exiting" in r.stdout.decode("utf-8"):
+            click.secho(r.stdout.decode("utf-8"))
+        else:
+            table = Table()
+            table.add_column("Package")
+            table.add_column("Version")
+            table.add_column("Release")
+            table.add_column("Origin")
+            table.add_column("Architecture")
+
+            for line in r.stdout.decode("utf-8").splitlines():
+                (metadata, package, version) = line.split()
+                (suite, origin, arch) = metadata.split("|")
+                table.add_row(package, version, suite, origin, arch[:-1])
+
+            self.console.print(table)
