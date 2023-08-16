@@ -100,3 +100,17 @@ class Repo:
                 table.add_row(package, version, suite, origin, arch[:-1])
 
             self.console.print(table)
+
+    def remove(self):
+        for pkg in self.state.packages:
+            log_step(f"Removing {pkg}")
+            r = run_command(
+                ["reprepro", "-b", str(self.repo), "remove",
+                 self.state.release, pkg],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                check=True)
+            if r.returncode == 0:
+                log_step(f"Successfully removed {pkg}\n")
+            else:
+                log_step(f"Failed to remove {pkg}\n")
