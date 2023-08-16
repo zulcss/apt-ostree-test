@@ -1,7 +1,5 @@
-# Copyright (c) 2023 Wind River Systems, Inc.
-#
-# SPDX-License-Identifier: Apache-2.0
-#
+{{/* Copyright (c) 2023 Wind River Systems, Inc. */}}
+{{/* SPDX-License-Identifier: Apache-2.0 */}}
 {{- $architecture := or .architecture "amd64" -}}
 {{- $image := or .image (printf "debian-ostree-qemu-uefi-%s.img" $architecture) -}}
 {{- $cmdline := or .cmdline "console=tty0 console=ttyS0,115200n8 rootwait rw fsck.mode=auto fsck.repair=yes systemd.gpt_auto=false" -}}
