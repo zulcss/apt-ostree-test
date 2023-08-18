@@ -21,7 +21,7 @@ def create_tmpfile_dir(rootdir):
         dirs = []
         for pkg in cache:
             if "/var" in pkg.installed_files and \
-                pkg.name not in excluded_packages:
+                    pkg.name not in excluded_packages:
                 dirs += [file for file in pkg.installed_files
                          if file.startswith("/var")]
         if len(dirs) == 0:

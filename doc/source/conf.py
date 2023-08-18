@@ -23,7 +23,7 @@ sys.path.insert(0, os.path.abspath('../..'))
 extensions = [
     'sphinx.ext.autodoc',
     'openstackdocstheme',
-    #'sphinx.ext.intersphinx',
+    # 'sphinx.ext.intersphinx',
 ]
 
 # autodoc generation is a bit aggressive and a nuisance when doing heavy
@@ -42,7 +42,7 @@ copyright = '2022, OpenStack Developers'
 
 # openstackdocstheme options
 openstackdocs_repo_name = 'starlingx/apt-ostree'
-openstackdocs_bug_project = 'replace with the name of the project on Launchpad or the ID from Storyboard'
+openstackdocs_bug_project = ''
 openstackdocs_bug_tag = ''
 
 # If true, '()' will be appended to :func: etc. cross-reference text.
@@ -78,4 +78,4 @@ latex_documents = [
 ]
 
 # Example configuration for intersphinx: refer to the Python standard library.
-#intersphinx_mapping = {'http://docs.python.org/': None}
+# intersphinx_mapping = {'http://docs.python.org/': None}
