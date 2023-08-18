@@ -22,7 +22,7 @@ from apt_ostree.utils import run_command
 @click.command(short_help="Create treefile")
 @pass_state_context
 @compose_options
-def create(state, repo, base, branch):
+def create(state, repo, base, branch, edit):
     if state.repo is None:
         click.secho("You did not supply an ostree repository", fg="red")
         sys.exit(1)
@@ -77,4 +77,7 @@ def create(state, repo, base, branch):
              "--output", str(workdir)], cwd=state.base)
 
     create_ostree(rootfs)
-    ostree_commit(state.repo, state.branch, rootfs)
+    ostree_commit(state,
+                  rootfs,
+                  subject="Commit by apt-ostree",
+                  msg="Initialized by apt-ostree")
