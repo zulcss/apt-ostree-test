@@ -8,6 +8,7 @@ SPDX-License-Identifier: Apache-2.0
 import hashlib
 import os
 import shutil
+import subprocess
 
 from apt_ostree.log import complete_step
 from apt_ostree.log import log_step
@@ -44,9 +45,13 @@ def convert_to_ostree(rootdir):
         sanitize_usr_symlinks(rootdir)
         log_step("Moving /var to /usr/rootdirs.")
         os.mkdir(rootdir.joinpath("usr/rootdirs"), dir_perm)
-        shutil.move(
-            rootdir.joinpath("var"),
-            rootdir.joinpath("usr/rootdirs/var"))
+        subprocess.run(
+            ["cp", "-r", "-p",
+             rootdir.joinpath("var"),
+             rootdir.joinpath("usr/rootdirs/var")
+             ]
+        )
+        shutil.rmtree(rootdir.joinpath("var"))
         os.mkdir(rootdir.joinpath("var"), dir_perm)
 
         # Remove unecessary files
@@ -59,8 +64,12 @@ def convert_to_ostree(rootdir):
 
         # Setup and split out etc
         log_step("Moving /etc to /usr/etc.")
-        shutil.move(rootdir.joinpath("etc"),
-                    rootdir.joinpath("usr"))
+        subprocess.run(
+            ["cp", "-r", "-p",
+             rootdir.joinpath("etc"),
+             rootdir.joinpath("usr")]
+        )
+        shutil.rmtree(rootdir.joinpath("etc"))
 
         log_step("Setting up /ostree and /sysroot.")
         try:
