@@ -5,6 +5,9 @@ SPDX-License-Identifier: Apache-2.0
 
 """
 
+import subprocess
+import sys
+
 import click
 
 from apt_ostree.log import complete_step
@@ -13,27 +16,24 @@ from apt_ostree.utils import run_command
 
 
 class Ostree:
-    """Ostree operations"""
-
     def __init__(self, state):
         self.state = state
-        self.repo = self.state.repo
         self.branch = self.state.branch
         self.edit = self.state.edit
 
     def ostree_init(self):
-        """Iniatialize an empty ostree repository."""
-        if not self.repo.exists():
-            click.secho(f"Creating f{self.repo}")
-            run_command(["ostree", "init", f"--repo={self.repo}",
-                         "--mode=archive-z2"])
+        """Initialize an ostree repository."""
+        if not self.state.repo.exists():
+            click.secho(f"Creating ostree repository: {self.state.repo}")
+            run_command(["ostree", "init", f"--repo={self.state.repo}",
+                        "--mode=archive-z2"])
 
     def ostree_commit(self,
                       rootfs,
                       subject=None,
                       msg=None):
         """Commit rootfs to ostree repository."""
-        cmd = ["ostree", "commit", f"--repo={self.repo}"]
+        cmd = ["ostree", "commit", f"--repo={self.state.repo}"]
         if self.edit:
             cmd += ["-e"]
         else:
@@ -43,12 +43,35 @@ class Ostree:
                 cmd += [f"--body={msg}"]
 
         cmd += [f"--branch={self.branch}", str(rootfs)]
-        with complete_step(f"Committing {self.branch} to {self.repo}"):
+        with complete_step(f"Committing {self.branch} to {self.state.repo}"):
             r = run_command(cmd)
             if r.returncode != 0:
                 click.secho(
-                    f"Failed to commit {self.branch}  to {self.repo}.",
+                    f"Failed to commit {self.branch}  to {self.state.repo}.",
                     fg="red")
                 raise
 
-            log_step(f"Succesfully commited {self.branch} to {self.repo}.")
+            log_step(f"Succesfully commited {self.branch} to {self.state.repo}.")
+
+    def ostree_ref(self, branch):
+        r = run_command(
+            ["ostree", f"--repo={str(self.state.repo)}", "rev-parse", branch],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            check=False,
+        )
+        msg = r.stdout.strip()
+        if r.returncode != 0:
+            click.secho(
+                f"Unable to determine {branch} in {self.state.repo}", fg="red")
+            sys.exit(1)
+
+        return msg.decode("utf-8")
+
+    def ostree_checkout(self, commit, rootfs):
+        return run_command(
+            ["ostree", "checkout", f"--repo={self.state.repo}", commit, str(rootfs)],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            check=False,
+        )

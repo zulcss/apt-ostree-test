@@ -7,6 +7,7 @@ FROM debian:bullseye
 RUN apt-get update && \
     apt-get install -y \
 	bdebstrap \
+	bubblewrap \
 	debos \
 	git \
 	ostree \

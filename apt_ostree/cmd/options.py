@@ -88,8 +88,8 @@ def base_option(f):
     )(f)
 
 
-def branch_option(f):
-    """ostree branch option"""
+def branch_argument(f):
+    """ostree branch argument"""
     def callback(ctxt, param, value):
         state = ctxt.ensure_object(State)
         state.branch = value
@@ -101,10 +101,38 @@ def branch_option(f):
     )(f)
 
 
+def commands_argument(f):
+    """ostree branch argument"""
+    def callback(ctxt, param, value):
+        state = ctxt.ensure_object(State)
+        state.commands = value
+        return value
+    return click.argument(
+        "commands",
+        nargs=-1,
+        callback=callback
+    )(f)
+
+
+def branch_option(f):
+    """branch  option"""
+    def callback(ctxt, param, value):
+        state = ctxt.ensure_object(State)
+        state.branch = value
+        return value
+    return click.option(
+        "--branch",
+        help="Branch to use",
+        nargs=1,
+        required=True,
+        callback=callback
+    )(f)
+
+
 def compose_options(f):
     f = repo_option(f)
     f = base_option(f)
-    f = branch_option(f)
+    f = branch_argument(f)
     f = edit_option(f)
     return f
 
