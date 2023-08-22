@@ -41,4 +41,6 @@ def run_command(cmd,
     except FileNotFoundError:
         click.secho(f"{cmd[0]} not found in PATH.")
     except subprocess.CalledProcessError as e:
-        raise e
+        click.secho("Failed to run command.")
+        click.secho(
+            f"Error Code: {e.returncode}, Error message: {e.output}")
