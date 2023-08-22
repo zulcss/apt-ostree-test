@@ -8,6 +8,7 @@ RUN apt-get update && \
     apt-get install -y \
 	bdebstrap \
 	debos \
+	git \
 	ostree \
 	python3 \
 	python3-apt \
@@ -15,7 +16,8 @@ RUN apt-get update && \
 	python3-pip \
 	python3-pbr \
 	python3-rich \
-	reprepro
+	reprepro \
+	vim
 
 ADD assets/pip.conf /etc/pip.conf
 
