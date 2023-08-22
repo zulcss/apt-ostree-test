@@ -15,7 +15,7 @@ from apt_ostree.cmd.options import compose_options
 from apt_ostree.cmd import pass_state_context
 from apt_ostree.log import complete_step
 from apt_ostree.log import log_step
-from apt_ostree.ostree import ostree_commit
+from apt_ostree.ostree import Ostree
 from apt_ostree.utils import run_command
 
 
@@ -27,12 +27,7 @@ def create(state, repo, base, branch, edit):
         click.secho("You did not supply an ostree repository", fg="red")
         sys.exit(1)
 
-    if not state.repo.exists():
-        click.secho(f"Creating ostree repository: {state.repo}")
-        run_command(["ostree", "init", f"--repo={state.repo}",
-                     "--mode=archive-z2"])
-    else:
-        click.secho(f"Found ostree repository: {state.repo}")
+    Ostree(state).ostree_init()
 
     if state.branch is None:
         click.secho("You did not supply an ostree branch.", fg="red")
@@ -77,7 +72,7 @@ def create(state, repo, base, branch, edit):
              "--output", str(workdir)], cwd=state.base)
 
     create_ostree(rootfs)
-    ostree_commit(state,
-                  rootfs,
-                  subject="Commit by apt-ostree",
-                  msg="Initialized by apt-ostree")
+    Ostree(state).ostree_commit(
+        rootfs,
+        subject="Commit by apt-ostree",
+        msg="Initialized by apt-ostree")
