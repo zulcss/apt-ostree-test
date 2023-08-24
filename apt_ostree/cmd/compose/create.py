@@ -76,3 +76,4 @@ def create(state, repo, base, branch, edit):
         rootfs,
         subject="Commit by apt-ostree",
         msg="Initialized by apt-ostree")
+    shutil.rmtree(rootfs)
