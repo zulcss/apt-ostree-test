@@ -44,7 +44,8 @@ class Ostree:
         if parent:
             cmd += [f"--parent={parent}"]
 
-        cmd += [f"--branch={self.state.branch}", str(rootfs)]
+        cmd += [f"--branch={self.state.branch}",
+                f"--tree=dir={str(rootfs)}"]
         with complete_step(
                 f"Committing {self.state.branch} to {self.state.repo}"):
             r = run_command(cmd)
@@ -92,4 +93,3 @@ class Ostree:
             stderr=subprocess.STDOUT,
             check=False,
         )
-

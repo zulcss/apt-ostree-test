@@ -44,8 +44,8 @@ class Deployment:
                     "Please wait...\n"):
                 self.ostree.ostree_commit(
                     self.rootfs,
-                    subject=f"Branched from {self.state.parent}",
-                    parent=commit)
+                    subject=f"Branched from {self.state.parent}"
+                )
             with self.console.status("Cleaning up..."):
                 shutil.rmtree(self.rootfs)
 

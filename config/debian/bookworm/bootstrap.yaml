@@ -56,3 +56,4 @@ mmdebstrap:
     - apparmor
     - curl
     - wget
+    - xterm
