@@ -82,3 +82,14 @@ class Ostree:
             stderr=subprocess.STDOUT,
             check=False,
         )
+
+    def ostree_update(self):
+        """Update the summary metadata"""
+        return run_command(
+            ["ostree", "summary",
+             "f--repo={self.state.repo", "-u"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            check=False,
+        )
+

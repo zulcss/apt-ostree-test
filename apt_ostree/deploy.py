@@ -82,6 +82,7 @@ class Deployment:
             self.ostree.ostree_commit(
                 self.rootfs, subject="created by exec",
                 msg=f"{' '.join(list(self.state.commands))}")
+            self.ostree.ostree_update()
 
     def _create_deployment_workspace(self):
         """Create a deployment workspace"""
