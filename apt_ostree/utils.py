@@ -7,6 +7,7 @@ SPDX-License-Identifier: Apache-2.0
 
 import os
 import subprocess
+import sys
 
 import click
 
@@ -44,6 +45,7 @@ def run_command(cmd,
         click.secho("Failed to run command.")
         click.secho(
             f"Error Code: {e.returncode}, Error message: {e.output}")
+        sys.exit(1)
 
 
 def run_sandbox_command(
@@ -81,11 +83,12 @@ def run_sandbox_command(
         "--bind", f"{rootfs}/usr/etc", "/etc",
         "--bind", f"{rootfs}/usr/rootdirs/var", "/var",
         "--bind", "/tmp", "/tmp",
+        "--bind", "/etc/resolv.conf", "/etc/resolv.conf",
     ]
 
     cmd += args
 
-    run_command(
+    return run_command(
         cmd,
         stdin=stdin,
         stdout=stdout,

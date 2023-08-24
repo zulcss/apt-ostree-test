@@ -5,6 +5,7 @@ SPDX-License-Identifier: Apache-2.0
 
 """
 
+import os
 import shutil
 import subprocess
 import sys
@@ -36,19 +37,24 @@ class Deployment:
                     self.console.print(
                         f"[red]Error[/red] Failed to checkout {self.branch}")
                     sys.exit(1)
+                os.unlink(self.rootfs.joinpath("usr/etc/resolv.conf"))
+                run_sandbox_command(
+                ["systemd-tmpfiles", "--create", "--boot"],
+                self.rootfs,
+                )
 
             self.console.print("Running apt-get update.")
             run_sandbox_command(
                 ["apt", "update"],
                 self.rootfs,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
             )
 
             run_sandbox_command(list(self.state.commands), self.rootfs)
 
             self.console.print("Upding /usr/rootdirs/var.")
             create_tmpfile_dir(self.rootfs)
+            self.console.print("Cleaning up rootfs")
+            shutil.rmtree(self.rootfs.joinpath("etc"))
             self.console.print(f"Committing to {self.state.branch}.")
             self.ostree.ostree_commit(
                 self.rootfs, subject="created by exec",

@@ -8,7 +8,6 @@ mmdebstrap:
   suite: bookworm
   architectures: [amd64]
   components: [main, contrib, non-free, non-free-firmware]
-  vairant: minbase
 
   setup-hooks:
     - 'sync-in overlay/debian/ /'
@@ -17,6 +16,8 @@ mmdebstrap:
   customize-hooks:
     - echo 'root:root' | chroot "$1" chpasswd
     - echo "localhost" > $1/etc/hostname
+    - systemctl --root=$1 enable firstboot
+    - systemctl --root=$1 enable systemd-networkd
 
   packages:
     - linux-image-amd64
@@ -26,3 +27,32 @@ mmdebstrap:
     - ostree-boot
     - systemd-boot
     - dracut
+
+    - bash-completion
+    - bzip2
+    - openssh-server
+    - bubblewrap
+    - git
+    - python3-pip
+    - python3-rich
+    - python3-pbr
+    - python3-apt
+    - less
+    - vim
+    - sudo
+    - net-tools
+    - procps
+    - locales
+    - openssh-client
+    - iptables
+    - grub-efi-amd64
+    - lzma
+    - whiptail
+    - lsb-release
+    - sudo
+    - dbus
+    - policykit-1
+    - libnss-resolve
+    - apparmor
+    - curl
+    - wget

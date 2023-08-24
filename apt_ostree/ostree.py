@@ -18,8 +18,6 @@ from apt_ostree.utils import run_command
 class Ostree:
     def __init__(self, state):
         self.state = state
-        self.branch = self.state.branch
-        self.edit = self.state.edit
 
     def ostree_init(self):
         """Initialize an ostree repository."""
@@ -34,7 +32,7 @@ class Ostree:
                       msg=None):
         """Commit rootfs to ostree repository."""
         cmd = ["ostree", "commit", f"--repo={self.state.repo}"]
-        if self.edit:
+        if self.state.edit:
             cmd += ["-e"]
         else:
             if subject:
@@ -42,16 +40,16 @@ class Ostree:
             if msg:
                 cmd += [f"--body={msg}"]
 
-        cmd += [f"--branch={self.branch}", str(rootfs)]
-        with complete_step(f"Committing {self.branch} to {self.state.repo}"):
+        cmd += [f"--branch={self.state.branch}", str(rootfs)]
+        with complete_step(f"Committing {self.state.branch} to {self.state.repo}"):
             r = run_command(cmd)
             if r.returncode != 0:
                 click.secho(
-                    f"Failed to commit {self.branch}  to {self.state.repo}.",
+                    f"Failed to commit {self.state.branch}  to {self.state.repo}.",
                     fg="red")
                 raise
 
-            log_step(f"Succesfully commited {self.branch} to {self.state.repo}.")
+            log_step(f"Succesfully commited {self.state.branch} to {self.state.repo}.")
 
     def ostree_ref(self, branch):
         r = run_command(

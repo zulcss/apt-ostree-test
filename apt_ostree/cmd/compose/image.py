@@ -19,7 +19,7 @@ from apt_ostree.utils import run_command
 @click.command(help="Create an raw image from ostree branch")
 @pass_state_context
 @compose_options
-def image(state, repo, base, branch):
+def image(state, repo, base, edit, branch):
     click.secho(f"Found ostree repository: {state.repo}")
     click.secho(f"Found ostree branch: {state.branch}")
     with complete_step(f"Setting up workspace for {state.branch}"):
