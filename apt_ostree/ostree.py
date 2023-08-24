@@ -28,6 +28,7 @@ class Ostree:
 
     def ostree_commit(self,
                       rootfs,
+                      parent=None,
                       subject=None,
                       msg=None):
         """Commit rootfs to ostree repository."""
@@ -40,16 +41,23 @@ class Ostree:
             if msg:
                 cmd += [f"--body={msg}"]
 
+        if parent:
+            cmd += [f"--parent={parent}"]
+
         cmd += [f"--branch={self.state.branch}", str(rootfs)]
-        with complete_step(f"Committing {self.state.branch} to {self.state.repo}"):
+        with complete_step(
+                f"Committing {self.state.branch} to {self.state.repo}"):
             r = run_command(cmd)
             if r.returncode != 0:
                 click.secho(
-                    f"Failed to commit {self.state.branch}  to {self.state.repo}.",
+                    f"Failed to commit {self.state.branch} "
+                    f"to {self.state.repo}.",
                     fg="red")
                 raise
 
-            log_step(f"Succesfully commited {self.state.branch} to {self.state.repo}.")
+            log_step(
+                f"Succesfully commited {self.state.branch} "
+                f"to {self.state.repo}.")
 
     def ostree_ref(self, branch):
         r = run_command(
@@ -68,7 +76,8 @@ class Ostree:
 
     def ostree_checkout(self, commit, rootfs):
         return run_command(
-            ["ostree", "checkout", f"--repo={self.state.repo}", commit, str(rootfs)],
+            ["ostree", "checkout",
+                f"--repo={self.state.repo}", commit, str(rootfs)],
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             check=False,

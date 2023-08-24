@@ -129,6 +129,20 @@ def branch_option(f):
     )(f)
 
 
+def parent_option(f):
+    """parent option"""
+    def callback(ctxt, param, value):
+        state = ctxt.ensure_object(State)
+        state.parent = value
+        return value
+    return click.option(
+        "--parent",
+        help="Branch to create a new branch from.",
+        nargs=1,
+        callback=callback
+    )(f)
+
+
 def compose_options(f):
     f = repo_option(f)
     f = base_option(f)
